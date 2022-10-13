@@ -1,10 +1,16 @@
 //using Serilog;
 
+using MagicVilla_WebAPI;
 using MagicVilla_WebAPI.Data;
 using MagicVilla_WebAPI.Logging;
+using MagicVilla_WebAPI.Repository;
+using MagicVilla_WebAPI.Repository.IRepository;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Add services to the container.
+
 
 // para q la app sepa q se tiene q conectar a la BD a traves de EF y para agarrar el connection string con la config
 // el hecho de registrarlo ( con builder.Services. ... ) aca es lo que me permite inyectarlo en los componentes
@@ -14,12 +20,14 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString);
 });
 
-// Add services to the container.
+builder.Services.AddScoped<IVillaRepository, VillaRepository>();
 
 // para logear al archivo ( video 32 )
 // Log.Logger = new LoggerConfiguration().MinimumLevel.Debug()
 //     .WriteTo.File("log/villaLogs.txt", rollingInterval: RollingInterval.Day).CreateLogger();
 // builder.Host.UseSerilog();
+
+builder.Services.AddAutoMapper(typeof(MappingConfig));
 
 builder.Services.AddControllers().AddNewtonsoftJson();
 
