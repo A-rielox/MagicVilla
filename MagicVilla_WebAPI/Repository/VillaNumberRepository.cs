@@ -6,22 +6,22 @@ using System.Linq.Expressions;
 
 namespace MagicVilla_WebAPI.Repository
 {
-    public class VillaRepository : Repository<Villa>, IVillaRepository
+    public class VillaNumberRepository : Repository<VillaNumber>, IVillaNumberRepository
     {
         private readonly ApplicationDbContext _db;
 
-        public VillaRepository(ApplicationDbContext db): base(db)
+        public VillaNumberRepository(ApplicationDbContext db): base(db)
         {
             this._db = db;
         }
 
         ////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////
-        public async Task<Villa> UpdateAsync(Villa entity)
+        public async Task<VillaNumber> UpdateAsync(VillaNumber entity)
         {
             entity.UpdatedDate = DateTime.Now;
 
-            _db.Villas.Update(entity);
+            _db.VillaNumbers.Update(entity);
             await _db.SaveChangesAsync();
 
             return entity;
