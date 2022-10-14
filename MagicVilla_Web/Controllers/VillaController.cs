@@ -55,11 +55,11 @@ namespace MagicVilla_Web.Controllers
                 var response = await _villaService.CreateAsync<APIResponse>(model/* ,await HttpContext.GetTokenAsync("access_token")*/);
                 if (response != null && response.IsSuccess)
                 {
-                    //TempData["success"] = "Villa created successfully";
+                    TempData["success"] = "Villa created successfully";
                     return RedirectToAction(nameof(IndexVilla));
                 }
             }
-            //TempData["error"] = "Error encountered.";
+            TempData["error"] = "Error encountered.";
             return View(model);
         }
 
@@ -86,14 +86,14 @@ namespace MagicVilla_Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                //TempData["success"] = "Villa updated successfully";
+                TempData["success"] = "Villa updated successfully";
                 var response = await _villaService.UpdateAsync<APIResponse>(model/*, await HttpContext.GetTokenAsync("access_token")*/);
                 if (response != null && response.IsSuccess)
                 {
                     return RedirectToAction(nameof(IndexVilla));
                 }
             }
-            //TempData["error"] = "Error encountered.";
+            TempData["error"] = "Error encountered.";
             return View(model);
         }
 
@@ -122,10 +122,10 @@ namespace MagicVilla_Web.Controllers
             var response = await _villaService.DeleteAsync<APIResponse>(model.Id/*, await HttpContext.GetTokenAsync("access_token")*/);
             if (response != null && response.IsSuccess)
             {
-                //TempData["success"] = "Villa deleted successfully";
+                TempData["success"] = "Villa deleted successfully";
                 return RedirectToAction(nameof(IndexVilla));
             }
-            //TempData["error"] = "Error encountered.";
+            TempData["error"] = "Error encountered.";
             return View(model);
         }
     }
