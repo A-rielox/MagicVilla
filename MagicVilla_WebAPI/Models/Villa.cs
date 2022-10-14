@@ -13,5 +13,18 @@
         public string Amenity { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
+
+        // para especificar la relacion one-to-many ( una villa muchas villaNumber )
+        public virtual IList<VillaNumber> VillaNumbers { get; set; }
     }
 }
+
+// ERROR EN LA MIGRACION al agregar la foreign-key
+//
+// The ALTER TABLE statement conflicted with the FOREIGN KEY constraint
+// "FK_VillaNumbers_Villas_VillaID". The conflict occurred in database "Magic_VillaAPI",
+// table "dbo.Villas", column 'Id'.
+// 
+// xq las villanumbers q ya estaban no tenian "VillaID" , => lo tomaba como null y no sabia a cual
+// villa coresponde null 
+// tuve q borrar las villasnumber y ya
