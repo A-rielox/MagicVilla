@@ -27,7 +27,7 @@ namespace MagicVilla_WebAPI.Repository
 
         ////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////
-        public async Task<T> GetAsync(Expression<Func<T, bool>> filter = null, bool tracked = true)
+        public async Task<T> GetAsync(Expression<Func<T, bool>> filter = null, bool tracked = true, string? includeProperties = null)
         {
             IQueryable<T> query = dbSet;
 
@@ -37,18 +37,36 @@ namespace MagicVilla_WebAPI.Repository
             if (filter != null)
                 query = query.Where(filter);
 
+            // al necesitar incluir props vendrian como "Villa, VillaSpacial"
+            if(includeProperties != null)
+            {
+                foreach (var includeProp in includeProperties.Split(new char[] {','}, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(includeProp);
+                }
+            }
+
             return await query.FirstOrDefaultAsync();
         }
 
         ////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////
-        public async Task<List<T>> GetAllAsync(Expression<Func<T, bool>>? filter = null)
+        public async Task<List<T>> GetAllAsync(Expression<Func<T, bool>>? filter = null, string? includeProperties = null)
         {
             // el IQueriable NO se ejecuta altiro => despues se le pone el filtro
             IQueryable<T> query = dbSet;
 
             if (filter != null)
                 query = query.Where(filter);
+
+            // al necesitar incluir props vendrian como "Villa, VillaSpacial"
+            if (includeProperties != null)
+            {
+                foreach (var includeProp in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(includeProp);
+                }
+            }
 
             return await query.ToListAsync();
         }
