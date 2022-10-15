@@ -27,7 +27,9 @@ namespace MagicVilla_WebAPI.Repository
 
         ////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////
-        public async Task<T> GetAsync(Expression<Func<T, bool>> filter = null, bool tracked = true, string? includeProperties = null)
+        public async Task<T> GetAsync(Expression<Func<T, bool>> filter = null,
+            bool tracked = true,
+            string? includeProperties = null)
         {
             IQueryable<T> query = dbSet;
 
@@ -51,7 +53,9 @@ namespace MagicVilla_WebAPI.Repository
 
         ////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////
-        public async Task<List<T>> GetAllAsync(Expression<Func<T, bool>>? filter = null, string? includeProperties = null)
+        public async Task<List<T>> GetAllAsync(
+            Expression<Func<T,bool>>? filter = null,
+            string? includeProperties = null )
         {
             // el IQueriable NO se ejecuta altiro => despues se le pone el filtro
             IQueryable<T> query = dbSet;
@@ -59,7 +63,7 @@ namespace MagicVilla_WebAPI.Repository
             if (filter != null)
                 query = query.Where(filter);
 
-            // al necesitar incluir props vendrian como "Villa, VillaSpacial"
+            // al necesitar incluir varias props vendrian como "Villa, VillaSpacial"
             if (includeProperties != null)
             {
                 foreach (var includeProp in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))

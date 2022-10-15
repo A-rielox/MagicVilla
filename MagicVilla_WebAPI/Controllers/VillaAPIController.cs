@@ -4,6 +4,7 @@ using MagicVilla_WebAPI.Models;
 //using MagicVilla_WebAPI.Logging;
 using MagicVilla_WebAPI.Models.Dto;
 using MagicVilla_WebAPI.Repository.IRepository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
@@ -35,7 +36,10 @@ namespace MagicVilla_WebAPI.Controllers
         //////////////////////////////////////////////
         /////////////////////////////////////////////////
         [HttpGet]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<APIResponse>> GetVillas()
         {
             try
@@ -60,7 +64,10 @@ namespace MagicVilla_WebAPI.Controllers
         //////////////////////////////////////////////
         /////////////////////////////////////////////////
         [HttpGet("{id:int}", Name = "GetVilla")]
+        [Authorize(Roles = "admin")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<APIResponse>> GetVilla(int id)
@@ -98,7 +105,7 @@ namespace MagicVilla_WebAPI.Controllers
 
         //////////////////////////////////////////////
         /////////////////////////////////////////////////
-        [HttpPost]
+        [HttpPost]        
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -147,8 +154,11 @@ namespace MagicVilla_WebAPI.Controllers
         /////////////////////////////////////////////////
         // devuelvo IActionResult solito ( sin tipo ) cuando no voy a devolver un tipo
         [HttpDelete("{id:int}", Name = "DeleteVilla")]
+        [Authorize(Roles = "nadie")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<APIResponse>> DeleteVilla(int id)
         {

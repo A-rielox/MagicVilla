@@ -42,7 +42,9 @@ namespace MagicVilla_WebAPI.Controllers
         {
             try
             {
-                IEnumerable<VillaNumber> villaNumberList = await _dbVillaNumber.GetAllAsync(includeProperties: "Villa");
+                IEnumerable<VillaNumber> villaNumberList = await _dbVillaNumber
+                    .GetAllAsync(includeProperties: "Villa");
+
                 var villaNumbersDTOList = _mapper.Map<List<VillaNumberDTO>>(villaNumberList);
 
                 _response.Result = villaNumbersDTOList;
