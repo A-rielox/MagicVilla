@@ -58,10 +58,10 @@ namespace MagicVilla_Web.Services
                 //
                 HttpResponseMessage apiResponse = null;
 
-                //if (!string.IsNullOrEmpty(apiRequest.Token))
-                //{
-                //    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apiRequest.Token);
-                //}
+                if (!string.IsNullOrEmpty(apiRequest.Token))
+                {
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apiRequest.Token);
+                }
 
                 // CUANDO HAY ERRORES PONGO PUNTO PA DEBUGEAR AQUI Y CHECO EL MENSAJE DE LA APIRESPONSE
                 apiResponse = await client.SendAsync(message);
