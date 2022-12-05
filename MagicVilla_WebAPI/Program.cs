@@ -55,6 +55,7 @@ builder.Services.AddAuthentication(x =>
     };
 });
 
+// paquete NuGet instalado p' el patch
 builder.Services.AddControllers().AddNewtonsoftJson();
 
 builder.Services.AddEndpointsApiExplorer();

@@ -1,9 +1,8 @@
-﻿namespace MagicVilla_WebAPI.Models.Dto
+﻿namespace MagicVilla_WebAPI.Models.Dto;
+
+public class LoginResponseDTO
 {
-    public class LoginResponseDTO
-    {
-        //public UserDTO User { get; set; }
-        public LocalUser User { get; set; }
-        public string Token { get; set; }
-    }
+    //public UserDTO User { get; set; }
+    public LocalUser User { get; set; }
+    public string Token { get; set; }
 }

@@ -40,9 +40,9 @@ namespace MagicVilla_WebAPI.Repository
                 query = query.Where(filter);
 
             // al necesitar incluir props vendrian como "Villa, VillaSpacial"
-            if(includeProperties != null)
+            if (includeProperties != null)
             {
-                foreach (var includeProp in includeProperties.Split(new char[] {','}, StringSplitOptions.RemoveEmptyEntries))
+                foreach (var includeProp in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
                 {
                     query = query.Include(includeProp);
                 }
